@@ -1,15 +1,9 @@
-# GlobalState
+# Language Features for CSS, SCSS, and LESS files
 
-Snapshotting of global state, factored out of PHPUnit into a stand-alone component.
+**Notice:** This extension is bundled with Visual Studio Code. It can be disabled but not uninstalled.
 
-[![Build Status](https://travis-ci.org/sebastianbergmann/global-state.svg?branch=master)](https://travis-ci.org/sebastianbergmann/global-state)
+## Features
 
-## Installation
+See [CSS, SCSS and Less in VS Code](https://code.visualstudio.com/docs/languages/css) to learn about the features of this extension.
 
-To add this package as a local, per-project dependency to your project, simply add a dependency on `sebastian/global-state` to your project's `composer.json` file. Here is a minimal example of a `composer.json` file that just defines a dependency on GlobalState:
-
-    {
-        "require": {
-            "sebastian/global-state": "1.0.*"
-        }
-    }
+Please read the [CONTRIBUTING.md](https://github.com/microsoft/vscode/blob/master/extensions/css-language-features/CONTRIBUTING.md) file to learn how to contribute to this extension.

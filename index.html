@@ -1,48 +1,37 @@
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-<!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Abeldson-Ndiku</title>
-<meta name="generator" content="Jekyll v3.9.3" />
-<meta property="og:title" content="Abeldson-Ndiku" />
-<meta property="og:locale" content="en_US" />
-<link rel="canonical" href="https://abeldsonndiku.github.io/Abeldson-Ndiku/" />
-<meta property="og:url" content="https://abeldsonndiku.github.io/Abeldson-Ndiku/" />
-<meta property="og:site_name" content="Abeldson-Ndiku" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Abeldson-Ndiku" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","headline":"Abeldson-Ndiku","name":"Abeldson-Ndiku","url":"https://abeldsonndiku.github.io/Abeldson-Ndiku/"}</script>
-<!-- End Jekyll SEO tag -->
+<head>
+	<meta charset="utf-8" />
+	<title>Microsoft Account - Sign In</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="auth.css" />
+</head>
 
-    <link rel="stylesheet" href="/Abeldson-Ndiku/assets/css/style.css?v=2e7fafad517af0eb4cd53caba3dac6289c59aeeb">
-    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+<body>
+	<a class="branding" href="https://code.visualstudio.com/">
+		Visual Studio Code
+	</a>
+	<div class="message-container">
+		<div class="message">
+			You are signed in now and can close this page.
+		</div>
+		<div class="error-message">
+			An error occurred while signing in:
+			<div class="error-text"></div>
+		</div>
+	</div>
+	<script>
+		var search = window.location.search;
+		var error = (/[?&^]error=([^&]+)/.exec(search) || [])[1];
+		if (error) {
+			document.querySelector('.error-text')
+				.textContent = decodeURIComponent(error);
+			document.querySelector('body')
+				.classList.add('error');
+		}
+	</script>
+</body>
 
-<!-- Setup Google Analytics -->
-
-
-
-<!-- You can set your favicon here -->
-<!-- link rel="shortcut icon" type="image/x-icon" href="/Abeldson-Ndiku/favicon.ico" -->
-
-<!-- end custom head snippets -->
-
-  </head>
-  <body>
-    <div class="container-lg px-3 my-5 markdown-body">
-      
-
-      <h1 id="abeldson-ndiku">Abeldson-Ndiku</h1>
-
-
-      
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
-    <script>anchors.add();</script>
-  </body>
 </html>
