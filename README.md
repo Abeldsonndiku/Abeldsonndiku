@@ -1,12 +1,15 @@
-Symfony Polyfill / Ctype
-========================
+# GlobalState
 
-This component provides `ctype_*` functions to users who run php versions without the ctype extension.
+Snapshotting of global state, factored out of PHPUnit into a stand-alone component.
 
-More information can be found in the
-[main Polyfill README](https://github.com/symfony/polyfill/blob/main/README.md).
+[![Build Status](https://travis-ci.org/sebastianbergmann/global-state.svg?branch=master)](https://travis-ci.org/sebastianbergmann/global-state)
 
-License
-=======
+## Installation
 
-This library is released under the [MIT license](LICENSE).
+To add this package as a local, per-project dependency to your project, simply add a dependency on `sebastian/global-state` to your project's `composer.json` file. Here is a minimal example of a `composer.json` file that just defines a dependency on GlobalState:
+
+    {
+        "require": {
+            "sebastian/global-state": "1.0.*"
+        }
+    }
