@@ -1,25 +1,15 @@
 # Change Log
 
-All notable changes to `sebastianbergmann/object-enumerator` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+All notable changes to `sebastianbergmann/code-unit-reverse-lookup` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [2.0.1] - 2017-02-18
-
-### Fixed
-
-* Fixed [#2](https://github.com/sebastianbergmann/phpunit/pull/2): Exceptions in `ReflectionProperty::getValue()` are not handled
-
-## [2.0.0] - 2016-11-19
+## [1.0.2] - 2020-11-30
 
 ### Changed
 
-* This component is now compatible with `sebastian/recursion-context: ~1.0.4`
+* Changed PHP version constraint in `composer.json` from `^5.6 || ^7.0` to `>=5.6`
 
-## 1.0.0 - 2016-02-04
-
-### Added
+## 1.0.0 - 2016-02-13
 
 * Initial release
 
-[2.0.1]: https://github.com/sebastianbergmann/object-enumerator/compare/2.0.0...2.0.1
-[2.0.0]: https://github.com/sebastianbergmann/object-enumerator/compare/1.0...2.0.0
-
+[1.0.2]: https://github.com/sebastianbergmann/code-unit-reverse-lookup/compare/1.0.1...1.0.2

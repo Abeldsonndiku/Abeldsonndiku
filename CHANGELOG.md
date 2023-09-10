@@ -1,196 +1,241 @@
-CHANGELOG
-=========
+# Revision History
 
-4.4.0
------
+## 8.4.0
 
- * Added support for parsing the inline notation spanning multiple lines.
- * Added support to dump `null` as `~` by using the `Yaml::DUMP_NULL_AS_TILDE` flag.
- * deprecated accepting STDIN implicitly when using the `lint:yaml` command, use `lint:yaml -` (append a dash) instead to make it explicit.
+### Features
 
-4.3.0
------
+* Support for PHP 8.x
+* PHPDoc annotations
+* Allow usage of CSS variables inside color functions (by parsing them as regular functions)
+* Use PSR-12 code style
+* *No deprecations*
 
- * Using a mapping inside a multi-line string is deprecated and will throw a `ParseException` in 5.0.
+### Bugfixes
 
-4.2.0
------
+* Improved handling of whitespace in `calc()`
+* Fix parsing units whose prefix is also a valid unit, like `vmin`
+* Allow passing an object to `CSSList#replace`
+* Fix PHP 7.3 warnings
+* Correctly parse keyframes with `%`
+* Don’t convert large numbers to scientific notation
+* Allow a file to end after an `@import`
+* Preserve case of CSS variables as specced
+* Allow identifiers to use escapes the same way as strings
+* No longer use `eval` for the comparison in `getSelectorsBySpecificity`, in case it gets passed untrusted input (CVE-2020-13756). Also fixed in 8.3.1, 8.2.1, 8.1.1, 8.0.1, 7.0.4, 6.0.2, 5.2.1, 5.1.3, 5.0.9, 4.0.1, 3.0.1, 2.0.1, 1.0.1.
+* Prevent an infinite loop when parsing invalid grid line names
+* Remove invalid unit `vm`
+* Retain rule order after expanding shorthands
 
- * added support for multiple files or directories in `LintCommand`
+### Backwards-incompatible changes
 
-4.0.0
------
+* PHP ≥ 5.6 is now required
+* HHVM compatibility target dropped
 
- * The behavior of the non-specific tag `!` is changed and now forces
-   non-evaluating your values.
- * complex mappings will throw a `ParseException`
- * support for the comma as a group separator for floats has been dropped, use
-   the underscore instead
- * support for the `!!php/object` tag has been dropped, use the `!php/object`
-   tag instead
- * duplicate mapping keys throw a `ParseException`
- * non-string mapping keys throw a `ParseException`, use the `Yaml::PARSE_KEYS_AS_STRINGS`
-   flag to cast them to strings
- * `%` at the beginning of an unquoted string throw a `ParseException`
- * mappings with a colon (`:`) that is not followed by a whitespace throw a
-   `ParseException`
- * the `Dumper::setIndentation()` method has been removed
- * being able to pass boolean options to the `Yaml::parse()`, `Yaml::dump()`,
-   `Parser::parse()`, and `Dumper::dump()` methods to configure the behavior of
-   the parser and dumper is no longer supported, pass bitmask flags instead
- * the constructor arguments of the `Parser` class have been removed
- * the `Inline` class is internal and no longer part of the BC promise
- * removed support for the `!str` tag, use the `!!str` tag instead
- * added support for tagged scalars.
+## 8.3.0 (2019-02-22)
 
-   ```yml
-   Yaml::parse('!foo bar', Yaml::PARSE_CUSTOM_TAGS);
-   // returns TaggedValue('foo', 'bar');
-   ```
+* Refactor parsing logic to mostly reside in the class files whose data structure is to be parsed (this should eventually allow us to unit-test specific parts of the parsing logic individually).
+* Fix error in parsing `calc` expessions when the first operand is a negative number, thanks to @raxbg.
+* Support parsing CSS4 colors in hex notation with alpha values, thanks to @raxbg.
+* Swallow more errors in lenient mode, thanks to @raxbg.
+* Allow specifying arbitrary strings to output before and after declaration blocks, thanks to @westonruter.
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-3.4.0
------
+## 8.2.0 (2018-07-13)
 
- * added support for parsing YAML files using the `Yaml::parseFile()` or `Parser::parseFile()` method
+* Support parsing `calc()`, thanks to @raxbg.
+* Support parsing grid-lines, again thanks to @raxbg.
+* Support parsing legacy IE filters (`progid:`) in lenient mode, thanks to @FMCorz
+* Performance improvements parsing large files, again thanks to @FMCorz
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * the `Dumper`, `Parser`, and `Yaml` classes are marked as final
+## 8.1.0 (2016-07-19)
 
- * Deprecated the `!php/object:` tag which will be replaced by the
-   `!php/object` tag (without the colon) in 4.0.
+* Comments are no longer silently ignored but stored with the object with which they appear (no render support, though). Thanks to @FMCorz.
+* The IE hacks using `\0` and `\9` can now be parsed (and rendered) in lenient mode. Thanks (again) to @FMCorz.
+* Media queries with or without spaces before the query are parsed. Still no *real* parsing support, though. Sorry…
+* PHPUnit is now listed as a dev-dependency in composer.json.
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * Deprecated the `!php/const:` tag which will be replaced by the
-   `!php/const` tag (without the colon) in 4.0.
+## 8.0.0 (2016-06-30)
 
- * Support for the `!str` tag is deprecated, use the `!!str` tag instead.
+* Store source CSS line numbers in tokens and parsing exceptions.
+* *No deprecations*
 
- * Deprecated using the non-specific tag `!` as its behavior will change in 4.0.
-   It will force non-evaluating your values in 4.0. Use plain integers or `!!float` instead.
+### Backwards-incompatible changes
 
-3.3.0
------
+* Unrecoverable parser errors throw an exception of type `Sabberworm\CSS\Parsing\SourceException` instead of `\Exception`.
 
- * Starting an unquoted string with a question mark followed by a space is
-   deprecated and will throw a `ParseException` in Symfony 4.0.
+## 7.0.3 (2016-04-27)
 
- * Deprecated support for implicitly parsing non-string mapping keys as strings.
-   Mapping keys that are no strings will lead to a `ParseException` in Symfony
-   4.0. Use quotes to opt-in for keys to be parsed as strings.
+* Fixed parsing empty CSS when multibyte is off
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-   Before:
+## 7.0.2 (2016-02-11)
 
-   ```php
-   $yaml = <<<YAML
-   null: null key
-   true: boolean true
-   2.0: float key
-   YAML;
+* 150 time performance boost thanks to @[ossinkine](https://github.com/ossinkine)
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-   Yaml::parse($yaml);
-   ```
+## 7.0.1 (2015-12-25)
 
-   After:
+* No more suppressed `E_NOTICE`
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-   ```php
+## 7.0.0 (2015-08-24)
 
-   $yaml = <<<YAML
-   "null": null key
-   "true": boolean true
-   "2.0": float key
-   YAML;
+* Compatibility with PHP 7. Well timed, eh?
+* *No deprecations*
 
-   Yaml::parse($yaml);
-   ```
+### Backwards-incompatible changes
 
- * Omitted mapping values will be parsed as `null`.
+* The `Sabberworm\CSS\Value\String` class has been renamed to `Sabberworm\CSS\Value\CSSString`.
 
- * Omitting the key of a mapping is deprecated and will throw a `ParseException` in Symfony 4.0.
+## 6.0.1 (2015-08-24)
 
- * Added support for dumping empty PHP arrays as YAML sequences:
+* Remove some declarations in interfaces incompatible with PHP 5.3 (< 5.3.9)
+* *No deprecations*
 
-   ```php
-   Yaml::dump([], 0, 0, Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
-   ```
+## 6.0.0 (2014-07-03)
 
-3.2.0
------
+* Format output using Sabberworm\CSS\OutputFormat
+* *No backwards-incompatible changes*
 
- * Mappings with a colon (`:`) that is not followed by a whitespace are deprecated
-   when the mapping key is not quoted and will lead to a `ParseException` in
-   Symfony 4.0 (e.g. `foo:bar` must be `foo: bar`).
+### Deprecations
 
- * Added support for parsing PHP constants:
+* The parse() method replaces __toString with an optional argument (instance of the OutputFormat class)
 
-   ```php
-   Yaml::parse('!php/const:PHP_INT_MAX', Yaml::PARSE_CONSTANT);
-   ```
+## 5.2.0 (2014-06-30)
 
- * Support for silently ignoring duplicate mapping keys in YAML has been
-   deprecated and will lead to a `ParseException` in Symfony 4.0.
+* Support removing a selector from a declaration block using `$oBlock->removeSelector($mSelector)`
+* Introduce a specialized exception (Sabberworm\CSS\Parsing\OuputException) for exceptions during output rendering
 
-3.1.0
------
+* *No deprecations*
 
- * Added support to dump `stdClass` and `ArrayAccess` objects as YAML mappings
-   through the `Yaml::DUMP_OBJECT_AS_MAP` flag.
+#### Backwards-incompatible changes
 
- * Strings that are not UTF-8 encoded will be dumped as base64 encoded binary
-   data.
+* Outputting a declaration block that has no selectors throws an OuputException instead of outputting an invalid ` {…}` into the CSS document.
 
- * Added support for dumping multi line strings as literal blocks.
+## 5.1.2 (2013-10-30)
 
- * Added support for parsing base64 encoded binary data when they are tagged
-   with the `!!binary` tag.
+* Remove the use of consumeUntil in comment parsing. This makes it possible to parse comments such as `/** Perfectly valid **/`
+* Add fr relative size unit
+* Fix some issues with HHVM
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * Added support for parsing timestamps as `\DateTime` objects:
+## 5.1.1 (2013-10-28)
 
-   ```php
-   Yaml::parse('2001-12-15 21:59:43.10 -5', Yaml::PARSE_DATETIME);
-   ```
+* Updated CHANGELOG.md to reflect changes since 5.0.4
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * `\DateTime` and `\DateTimeImmutable` objects are dumped as YAML timestamps.
+## 5.1.0 (2013-10-24)
 
- * Deprecated usage of `%` at the beginning of an unquoted string.
+* Performance enhancements by Michael M Slusarz
+* More rescue entry points for lenient parsing (unexpected tokens between declaration blocks and unclosed comments)
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * Added support for customizing the YAML parser behavior through an optional bit field:
+## 5.0.8 (2013-08-15)
 
-   ```php
-   Yaml::parse('{ "foo": "bar", "fiz": "cat" }', Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE | Yaml::PARSE_OBJECT | Yaml::PARSE_OBJECT_FOR_MAP);
-   ```
+* Make default settings’ multibyte parsing option dependent on whether or not the mbstring extension is actually installed.
+* *No backwards-incompatible changes*
+* *No deprecations*
 
- * Added support for customizing the dumped YAML string through an optional bit field:
+## 5.0.7 (2013-08-04)
 
-   ```php
-   Yaml::dump(['foo' => new A(), 'bar' => 1], 0, 0, Yaml::DUMP_EXCEPTION_ON_INVALID_TYPE | Yaml::DUMP_OBJECT);
-   ```
+* Fix broken decimal point output optimization
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-3.0.0
------
+## 5.0.6 (2013-05-31)
 
- * Yaml::parse() now throws an exception when a blackslash is not escaped
-   in double-quoted strings
+* Fix broken unit test
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-2.8.0
------
+## 5.0.5 (2013-04-17)
 
- * Deprecated usage of a colon in an unquoted mapping value
- * Deprecated usage of @, \`, | and > at the beginning of an unquoted string
- * When surrounding strings with double-quotes, you must now escape `\` characters. Not
-   escaping those characters (when surrounded by double-quotes) is deprecated.
+* Initial support for lenient parsing (setting this parser option will catch some exceptions internally and recover the parser’s state as neatly as possible).
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-   Before:
+## 5.0.4 (2013-03-21)
 
-   ```yml
-   class: "Foo\Var"
-   ```
+* Don’t output floats with locale-aware separator chars
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-   After:
+## 5.0.3 (2013-03-21)
 
-   ```yml
-   class: "Foo\\Var"
-   ```
+* More size units recognized
+* *No backwards-incompatible changes*
+* *No deprecations*
 
-2.1.0
------
+## 5.0.2 (2013-03-21)
 
- * Yaml::parse() does not evaluate loaded files as PHP files by default
-   anymore (call Yaml::enablePhpParsing() to get back the old behavior)
+* CHANGELOG.md file added to distribution
+* *No backwards-incompatible changes*
+* *No deprecations*
+
+## 5.0.1 (2013-03-20)
+
+* Internal cleanup
+* *No backwards-incompatible changes*
+* *No deprecations*
+
+## 5.0.0 (2013-03-20)
+
+* Correctly parse all known CSS 3 units (including Hz and kHz).
+* Output RGB colors in short (#aaa or #ababab) notation
+* Be case-insensitive when parsing identifiers.
+* *No deprecations*
+
+### Backwards-incompatible changes
+
+* `Sabberworm\CSS\Value\Color`’s `__toString` method overrides `CSSList`’s to maybe return something other than `type(value, …)` (see above).
+
+## 4.0.0 (2013-03-19)
+
+* Support for more @-rules
+* Generic interface `Sabberworm\CSS\Property\AtRule`, implemented by all @-rule classes
+* *No deprecations*
+
+### Backwards-incompatible changes
+
+* `Sabberworm\CSS\RuleSet\AtRule` renamed to `Sabberworm\CSS\RuleSet\AtRuleSet`
+* `Sabberworm\CSS\CSSList\MediaQuery` renamed to `Sabberworm\CSS\RuleSet\CSSList\AtRuleBlockList` with differing semantics and API (which also works for other block-list-based @-rules like `@supports`).
+
+## 3.0.0 (2013-03-06)
+
+* Support for lenient parsing (on by default)
+* *No deprecations*
+
+### Backwards-incompatible changes
+
+* All properties (like whether or not to use `mb_`-functions, which default charset to use and – new – whether or not to be forgiving when parsing) are now encapsulated in an instance of `Sabberworm\CSS\Settings` which can be passed as the second argument to `Sabberworm\CSS\Parser->__construct()`.
+* Specifying a charset as the second argument to `Sabberworm\CSS\Parser->__construct()` is no longer supported. Use `Sabberworm\CSS\Settings::create()->withDefaultCharset('some-charset')` instead.
+* Setting `Sabberworm\CSS\Parser->bUseMbFunctions` has no effect. Use `Sabberworm\CSS\Settings::create()->withMultibyteSupport(true/false)` instead.
+* `Sabberworm\CSS\Parser->parse()` may throw a `Sabberworm\CSS\Parsing\UnexpectedTokenException` when in strict parsing mode.
+
+## 2.0.0 (2013-01-29)
+
+* Allow multiple rules of the same type per rule set
+
+### Backwards-incompatible changes
+
+* `Sabberworm\CSS\RuleSet->getRules()` returns an index-based array instead of an associative array. Use `Sabberworm\CSS\RuleSet->getRulesAssoc()` (which eliminates duplicate rules and lets the later rule of the same name win).
+* `Sabberworm\CSS\RuleSet->removeRule()` works as it did before except when passed an instance of `Sabberworm\CSS\Rule\Rule`, in which case it would only remove the exact rule given instead of all the rules of the same type. To get the old behaviour, use `Sabberworm\CSS\RuleSet->removeRule($oRule->getRule()`;
+
+## 1.0
+
+Initial release of a stable public API.
+
+## 0.9
+
+Last version not to use PSR-0 project organization semantics.
