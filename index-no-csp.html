@@ -4,15 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 
-	<meta http-equiv="Content-Security-Policy"
-		content="default-src 'none'; script-src 'sha256-N4YFn5ze5crjPqMK/opogKs7bSGWtf3lmjV/3LfbSOs=' 'self'; frame-src 'self'; style-src 'unsafe-inline';">
-
 	<!-- Disable pinch zooming -->
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 </head>
 
 <body style="margin: 0; overflow: hidden; width: 100%; height: 100%" role="document">
+	<!-- TODO: Remove additional script tag once Firefox is fixed https://bugzilla.mozilla.org/show_bug.cgi?id=1737882 -->
+	<script></script>
 	<script async type="module">
 		// @ts-check
 		/// <reference lib="dom" />
