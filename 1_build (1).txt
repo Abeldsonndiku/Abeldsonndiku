@@ -1,0 +1,8 @@
+2023-06-19T15:46:48.2740732Z ##[section]Starting: Prepare job build
+2023-06-19T15:46:48.2976590Z Evaluating strategy
+2023-06-19T15:46:48.2984084Z Creating job '__default'
+2023-06-19T15:46:48.2986844Z Evaluating timeout
+2023-06-19T15:46:48.2986887Z Evaluating cancel timeout
+2023-06-19T15:46:48.2986917Z Evaluating continue on error
+2023-06-19T15:46:48.2986941Z Evaluating target
+2023-06-19T15:46:48.2988679Z ##[section]Finishing: Prepare job build

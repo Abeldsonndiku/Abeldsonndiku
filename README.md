@@ -1,10 +1,12 @@
-- 👋 Hi, I’m @Abeldsonndiku
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+Symfony Polyfill / Ctype
+========================
 
-<!---
-Abeldsonndiku/Abeldsonndiku is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+This component provides `ctype_*` functions to users who run php versions without the ctype extension.
+
+More information can be found in the
+[main Polyfill README](https://github.com/symfony/polyfill/blob/main/README.md).
+
+License
+=======
+
+This library is released under the [MIT license](LICENSE).
